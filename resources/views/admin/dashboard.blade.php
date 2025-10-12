@@ -16,4 +16,3 @@
     </div>
 </x-app-layout>
 
-@include('admin.sidebar')
