@@ -40,7 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'consulter' => [
+            'driver' => 'session',
+            'provider' => 'consulters',
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -69,6 +74,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'consulters' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Consulter::class, // Links to your Consulter model
+        ],
     ],
 
     /*
