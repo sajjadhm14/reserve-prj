@@ -17,7 +17,8 @@
                         <div class="d-flex justify-content-between align-items-center position-absolute top-90 w-100 px-2 px-md-4 mt-n4">
                             <div>
                                 @php
-                                    $consulter = App\Models\consulter::find(\Illuminate\Support\Facades\Auth::user()->id);
+                                    use Illuminate\Support\Facades\Auth;
+                                    $consulter = Auth::guard('consulter')->user();
                                 @endphp
                                 <span class="h4 ms-3 text-light">{{$consulter->name}}</span>
                             </div>
