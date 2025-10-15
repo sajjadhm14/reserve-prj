@@ -14,13 +14,14 @@
                             <div class="card shadow-sm w-100">
                                 <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                     <div>
-                                        <h5 class="card-title mb-4">Consultant Name</h5>
+                                        <h5 class="card-title mb-4">{{$consultant->name}}</h5>
                                         <p class="card-text text-muted mb-2">
-                                            Short description about consultant goes here...
+                                            {{$consultant->specialization}}
                                         </p>
                                     </div>
-                                    <div class="mt-6 mt-md-0">
-                                        <a href="#" class="btn btn-primary px-4 py-2 fw-bold btn-reserve" style="font-size: 15px;">Reserve</a>
+                                    <div class="mt-3 mt-md-0">
+                                        <a href="#" class="btn btn-primary px-4 py-2 fw-bold btn-reserve"
+                                           data-id="1" style="font-size: 15px;">Reserve</a>
                                     </div>
                                 </div>
                             </div>
@@ -28,13 +29,14 @@
                             <div class="card shadow-sm w-100">
                                 <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                     <div>
-                                        <h5 class="card-title mb-4">Consultant Name</h5>
+                                        <h5 class="card-title mb-4">Consultant 2</h5>
                                         <p class="card-text text-muted mb-2">
-                                            Short description about consultant goes here...
+                                            Short description about consultant 2 goes here...
                                         </p>
                                     </div>
                                     <div class="mt-3 mt-md-0">
-                                        <a href="#" class="btn btn-primary px-4 py-2 fw-bold btn-reserve">Reserve</a>
+                                        <a href="#" class="btn btn-primary px-4 py-2 fw-bold btn-reserve"
+                                           data-id="2" style="font-size: 15px;">Reserve</a>
                                     </div>
                                 </div>
                             </div>
@@ -42,18 +44,20 @@
                             <div class="card shadow-sm w-100">
                                 <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                     <div>
-                                        <h5 class="card-title mb-4">Consultant Name</h5>
+                                        <h5 class="card-title mb-4">Consultant 3</h5>
                                         <p class="card-text text-muted mb-2">
-                                            Short description about consultant goes here...
+                                            Short description about consultant 3 goes here...
                                         </p>
                                     </div>
                                     <div class="mt-3 mt-md-0">
-                                        <a href="#" class="btn btn-primary px-4 py-2 fw-bold btn-reserve">Reserve</a>
+                                        <a href="#" class="btn btn-primary px-4 py-2 fw-bold btn-reserve"
+                                           data-id="3" style="font-size: 15px;">Reserve</a>
                                     </div>
                                 </div>
                             </div>
                             {{-- /Consultant Card --}}
                         </div>
+
                         <!-- Reservation Modal -->
                         <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -80,54 +84,60 @@
         </div>
     </div>
 
+    {{-- Script --}}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            // وقتی روی دکمه Reserve کلیک بشه
-            $(document).on('click', '.btn-reserve', function(e) {
-                e.preventDefault();
-
-                // می‌تونی بعداً ID مشاور رو از data-attribute بگیری
-                let consultantName = $(this).closest('.card-body').find('.card-title').text();
-                $('#reservationModalLabel').text('Reserve: ' + consultantName);
-
-                // نمایش مودال
-                $('#reservationModal').modal('show');
-            });
-
-            // فعال‌سازی تقویم Flatpickr (همون که در layout لود شده)
+            // Initialize date picker
             $('#reservation-date').flatpickr({
                 minDate: "today",
                 dateFormat: "Y-m-d"
             });
 
-            // وقتی دکمه Confirm کلیک بشه
-            $('#confirmReservation').on('click', function() {
+            // Handle Reserve button click
+            $(document).on('click', '.btn-reserve', function (e) {
+                e.preventDefault();
+
+                let consultantId = $(this).data('id');
+                let consultantName = $(this).closest('.card-body').find('.card-title').text();
+
+                $('#reservationModalLabel').text('Reserve: ' + consultantName);
+                $('#reservationModal').data('consultant-id', consultantId);
+                $('#reservationModal').modal('show');
+            });
+
+            // Handle Confirm Reservation button
+            $('#confirmReservation').on('click', function () {
                 let date = $('#reservation-date').val();
+                let consultantId = $('#reservationModal').data('consultant-id');
 
                 if (!date) {
                     toastr.warning('Please select a date first.');
                     return;
                 }
 
-                // مثال ساده AJAX
-                {{--$.ajax({--}}
-                {{--    url: "{{ route('admin.reservations.store') }}", // مسیر فرضی--}}
-                {{--    method: "POST",--}}
-                {{--    data: {--}}
-                {{--        date: date,--}}
-                {{--        _token: "{{ csrf_token() }}"--}}
-                {{--    },--}}
-                {{--    success: function(response) {--}}
-                {{--        toastr.success('Reservation saved successfully!');--}}
-                {{--        $('#reservationModal').modal('hide');--}}
-                {{--    },--}}
-                {{--    error: function(xhr) {--}}
-                {{--        toastr.error('Something went wrong!');--}}
-                {{--    }--}}
-                {{--});--}}
+                $.ajax({
+                    url: "{{ route('reservation.store') }}", // make sure this route exists
+                    method: "POST",
+                    data: {
+                        date: date,
+                        consultant_id: consultantId,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (response) {
+                        toastr.success(response.message);
+                        $('#reservationModal').modal('hide');
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 409) {
+                            toastr.error(xhr.responseJSON.error);
+                        } else {
+                            toastr.error('Something went wrong!');
+                        }
+                    }
+                });
             });
+
         });
     </script>
-
 @endsection
