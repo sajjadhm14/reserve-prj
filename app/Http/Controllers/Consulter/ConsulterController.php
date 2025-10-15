@@ -17,6 +17,7 @@ class ConsulterController extends Controller
 {
     public function index()
     {
+        dd("sdfjsfh");
         return view('consulter.consulter-dashboard');
     }
 }
