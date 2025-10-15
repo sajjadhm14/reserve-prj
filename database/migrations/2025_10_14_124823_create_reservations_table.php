@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->ondelete('cascade');
-//            $table->foreignId('consulter_id')->constrained()->ondelete('cascade');
-            $table->string('subject');
+//            `$table->foreignId('consulter_id')->constrained()->ondelete('cascade')->nullable();`
+            $table->unsignedBigInteger('consulter_id')->nullable();
+            $table->string('subject')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
+
+
+//            $table->foreign('consulter_id')->references('id')->on('consulters')->onDelete('cascade');
         });
     }
 
