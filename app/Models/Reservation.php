@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reservation extends Model
 {
@@ -12,4 +13,13 @@ class Reservation extends Model
         'subject',
         'description',
     ];
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function consulter() : BelongsTo
+    {
+        return $this->belongsTo(Consulter::class);
+    }
 }
