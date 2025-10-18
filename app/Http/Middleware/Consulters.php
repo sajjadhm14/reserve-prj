@@ -19,14 +19,14 @@ class Consulter
         // If user is not authenticated AT ALL (i.e., not logged in),
         // send them to the Consulter-specific login page.
         if (!Auth::check()) {
-            dd(2);
+
             // Change the redirect target to your new consulter login route
-            return redirect()->route('consulter.login')->with('error', 'You must be logged in as a consulter.');
+            return redirect()->route('consulter.index')->with('error', 'You must be logged in as a consulter.');
         }
-        dd(1);
+
 
         // After they log in, proceed with the authorization check
-        $isConsulter = Consulter::where('id', Auth::id())->exists();
+        $isConsulter = Consulter::where( 'consulter_id' ,Auth::id())->exists();
 
         if (! $isConsulter) {
             // Logged in as a regular user, but trying to access a consulter page.

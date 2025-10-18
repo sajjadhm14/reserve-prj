@@ -17,7 +17,16 @@ class ConsulterController extends Controller
 {
     public function index()
     {
-        dd("sdfjsfh");
         return view('consulter.consulter-dashboard');
+    }
+
+    public function reservationCheck()
+    {
+        return view ('consulter.pages.reservation-check');
+    }
+
+    public function ConsulterInfo()
+    {
+        return view ('consulter.pages.info');
     }
 }
