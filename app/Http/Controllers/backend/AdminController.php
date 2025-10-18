@@ -22,6 +22,6 @@ class AdminController extends Controller
 
     public function info()
     {
-        return view('admin.pages.info');
+        return view('user.pages.info');
     }
 }
