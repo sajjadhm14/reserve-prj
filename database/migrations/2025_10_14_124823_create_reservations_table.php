@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->ondelete('cascade');
 //            `$table->foreignId('consulter_id')->constrained()->ondelete('cascade')->nullable();`
             $table->unsignedBigInteger('consulter_id')->nullable();
-            $table->string('subject')->nullable();
-            $table->string('description')->nullable();
+            $table->date('date');
+            $table->time('time');
             $table->timestamps();
 
 
