@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable; // <<< THIS IS THE CORRECT TRAIT TO USE
 use Illuminate\Notifications\Notifiable; // Recommended for auth models
 
-// IMPORTANT: The class name should be capitalized (Consulters)
+
 class consulter extends Model implements AuthenticatableContract
 {
     // Use the Authenticatable trait to implement all required methods
