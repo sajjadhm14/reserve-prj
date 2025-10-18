@@ -2,12 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\consulter;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class Consulter
+class Consulters
 {
     /**
      * Handle an incoming request.
@@ -17,7 +18,7 @@ class Consulter
     public function handle(Request $request, Closure $next): Response
     {
         // If user is not authenticated AT ALL (i.e., not logged in),
-        // send them to the Consulter-specific login page.
+        // send them to the Consulters-specific login page.
         if (!Auth::check()) {
 
             // Change the redirect target to your new consulter login route
@@ -26,7 +27,7 @@ class Consulter
 
 
         // After they log in, proceed with the authorization check
-        $isConsulter = Consulter::where( 'consulter_id' ,Auth::id())->exists();
+        $isConsulter = consulter::where( 'id' ,Auth::id())->exists();
 
         if (! $isConsulter) {
             // Logged in as a regular user, but trying to access a consulter page.
