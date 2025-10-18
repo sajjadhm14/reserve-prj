@@ -10,8 +10,9 @@ class Reservation extends Model
     protected $fillable = [
         'consulter_id',
         'user_id',
-        'subject',
-        'description',
+        'date',
+        'time',
+        'status',
     ];
     public function user() : BelongsTo
     {
