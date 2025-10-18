@@ -1,5 +1,5 @@
 @php
-    $consulter = App\Models\consulter::find(\Illuminate\Support\Facades\Auth::user()->id);
+    $consulter = App\Models\consulter::find(\Illuminate\Support\Facades\Auth::guard('consulter')->id());
 @endphp
 
 <nav class="navbar">
@@ -42,13 +42,13 @@
                     </div>
                     <ul class="list-unstyled p-1">
                         <li class="dropdown-item py-2">
-                            <a href="{{route('dashboard')}}" class="text-body ms-0">
+                            <a href="{{route('consulter.index')}}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="user"></i>
                                 <span>Profile</span>
                             </a>
                         </li>
                         <li class="dropdown-item py-2">
-                            <a href="{{route('admin.logout')}}" class="text-body ms-0">
+                            <a href="{{route('consulter.logout')}}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="log-out"></i>
                                 <span>Log Out</span>
                             </a>

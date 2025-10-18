@@ -70,13 +70,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
         'consulters' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Consulter::class, // Links to your Consulter model
+            'model' => App\Models\consulter::class, // Links to your Consulters model
         ],
     ],
 

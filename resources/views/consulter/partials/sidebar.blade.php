@@ -13,15 +13,15 @@
         <ul class="nav">
             <li class="nav-item nav-category">Main</li>
             <li class="nav-item">
-                <a href="{{route('info')}}" class="nav-link">
+                <a href="{{route('consulter.info')}}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('reservation.index')}}" class="nav-link">
+                <a href="{{route('check.reservation')}}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Make Reservation</span>
+                    <span class="link-title">Check Reservation</span>
                 </a>
             </li>
         </ul>

@@ -1,7 +1,6 @@
-@extends('admin.dashboard')
+@extends('user.dashboard')
 
 @section('content')
-
 
     <div class="page-content">
         <div class="row">

@@ -33,14 +33,15 @@
     <link rel="stylesheet" href="{{asset('../user/assets/css/demo2/style.css')}}">
     <!-- End layout styles -->
 
-    <link rel="shortcut icon" href="{{asset('../user/assets/images/favicon.png')}}" />
+    <link rel="shortcut icon" href="{{asset('../user/assets/images/favicon.png')}}"/>
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{asset('../../../user/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css')}}">
+    <link rel="stylesheet"
+          href="{{asset('../../../user/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css')}}">
     <!-- End plugin css for this page -->
 
 </head>
@@ -48,7 +49,7 @@
 <div class="main-wrapper">
 
     <!-- partial:partials/_sidebar.html -->
-    @include('admin.partials.sidebar')
+    @include('user.partials.sidebar')
 
 
     <!-- partial -->
@@ -56,29 +57,22 @@
     <div class="page-wrapper">
 
         <!-- partial:partials/_navbar.html -->
-        @include('admin.partials.navbar')
+        @include('user.partials.navbar')
         <!-- partial -->
 
         @yield('content')
 
 
 
-            <!-- partial:partials/_footer.html -->
-            @include('admin.partials.footer')
-            <!-- partial -->
-        </div>
-
+        <!-- partial:partials/_footer.html -->
+        @include('user.partials.footer')
+        <!-- partial -->
     </div>
 
+</div>
 
 
-
-
-
-
-
-
-    <!-- core:js -->
+<!-- core:js -->
 <script src="{{asset('../user/assets/vendors/core/core.js')}}"></script>
 <!-- endinject -->
 
@@ -100,7 +94,7 @@
 <script>
     @if(Session::has('message'))
     var type = "{{ Session::get('alert-type','info') }}"
-    switch(type){
+    switch (type) {
         case 'info':
             toastr.info(" {{ Session::get('message') }} ");
             break;
@@ -131,9 +125,6 @@
 
 <script src="{{asset('../../../user/assets/vendors/tinymce/tinymce.min.js')}}"></script>
 <script src="{{asset('../../../user/assets/js/tinymce.js')}}"></script>
-
-
-
 
 
 </body>

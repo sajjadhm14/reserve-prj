@@ -10,47 +10,40 @@
                         <h4 class="card-title mb-4">My Reservations</h4>
 
                         {{-- Info message if no reservations exist --}}
-                        <div class="alert alert-info text-center">
-                            No reservations have been scheduled yet.
-                        </div>
-
-                        {{-- Table structure (you will fill data later) --}}
-                        <div class="table-responsive mt-4">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th>rows</th>
-                                    <th>User Name</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John Doe</td>
-                                    <td>2025-10-20</td>
-                                    <td>14:00 - 14:30</td>
-                                    <td><span class="badge bg-warning">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jane Smith</td>
-                                    <td>2025-10-22</td>
-                                    <td>16:00 - 16:30</td>
-                                    <td><span class="badge bg-success">Approved</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Ali Reza</td>
-                                    <td>2025-10-25</td>
-                                    <td>11:30 - 12:00</td>
-                                    <td><span class="badge bg-danger">Cancelled</span></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        @if($reservations->isEmpty())
+                            <div class="alert alert-info text-center">
+                                No reservations have been scheduled yet.
+                            </div>
+                        @else
+                            <div class="table-responsive mt-4">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User Name</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($reservations as $key => $reservation)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $reservation->user->name ?? 'N/A' }}</td>
+                                            <td>{{ $reservation->date }}</td>
+                                            <td>{{ $reservation->time }}</td>
+                                            <td>
+                                                    <span class="badge bg-{{ $reservation->status == 'pending' ? 'warning' : 'success' }}">
+                                                        {{ ucfirst($reservation->status) }}
+                                                    </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
 
                     </div>
                 </div>
@@ -58,4 +51,3 @@
         </div>
     </div>
 @endsection
-
