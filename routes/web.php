@@ -24,7 +24,9 @@ Route::post('register-consulter' , [\App\Http\Controllers\Consulter\auth\Registe
 
 Route::middleware('consulter_middleware')->group(function () {
 
-    Route::get('consulter/index', [ConsulterController::class, 'index'])->name('consulter.index');
+    Route::get('/consulter/logout' , [ConsulterController::class , 'logout'])->name('consulter.logout');
+
+    Route::get('consulter/index1', [ConsulterController::class, 'index'])->name('consulter.index');
     Route::get('reservation-check' , [ConsulterController::class , 'reservationCheck'])->name('check.reservation');
     Route::get('consulter-info' , [ConsulterController::class , 'consulterInfo'])->name('consulter.info');
 });
@@ -42,10 +44,10 @@ Route::middleware('consulter_middleware')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return view('admin.dashboard');
+        return view('user.dashboard');
     })->middleware(['verified'])->name('dashboard');
-//    admin routes
-    Route::get('/admin/logout' , [AdminController::class , 'logout'])->name('admin.logout');
+//    user routes
+    Route::get('/user/logout' , [AdminController::class , 'logout'])->name('user.logout');
     Route::get('info' , [AdminController::class , 'info'])->name('info');
 
 //    reservation route
